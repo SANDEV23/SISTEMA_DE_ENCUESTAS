@@ -14,18 +14,20 @@ Route::get('/', function () {
 
 // Rutas de autenticación (solo para invitados)
 Route::middleware('guest')->group(function () {
-    // Registro de usuarios
+    // Formulario de registro de usuarios
     Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
-    Route::post('/register', [AuthController::class, 'register']);
 
-    // Login
+    // Formulario de login
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [AuthController::class, 'login']);
 
-    // Registro de empresas
+    // Formulario de registro de empresas
     Route::get('/companies/register', [CompanyController::class, 'showRegisterForm'])->name('companies.register');
-    Route::post('/companies/register', [CompanyController::class, 'register']);
 });
+
+// Procesamiento de registro y login (sin middleware guest para permitir autenticación)
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/companies/register', [CompanyController::class, 'register']);
 
 // Rutas públicas para responder encuestas
 Route::get('/surveys/{id}/view', [SurveyController::class, 'show'])->name('surveys.show');
