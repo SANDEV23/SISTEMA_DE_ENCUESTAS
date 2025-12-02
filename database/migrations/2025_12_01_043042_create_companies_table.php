@@ -12,7 +12,11 @@ return new class extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('contact_email')->nullable();
+            $table->string('contact_email')->unique();
+            $table->string('phone')->nullable();
+            $table->text('address')->nullable();
+            $table->string('website')->nullable();
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

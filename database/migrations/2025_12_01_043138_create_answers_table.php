@@ -14,10 +14,12 @@ return new class extends Migration
     {
         Schema::create('answers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('survey_id')->constrained()->onDelete('cascade');// Relacion con la encuesta 
-            $table->foreignId('question_id')->constrained()->onDelete('cascade');//realcion con la pregunta
-            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();//relacion con el usuario 
-            $table->text('answer');
+            $table->foreignId('survey_id')->constrained()->onDelete('cascade');
+            $table->foreignId('question_id')->constrained()->onDelete('cascade');
+            $table->foreignId('option_id')->nullable()->constrained()->onDelete('cascade');
+            $table->text('answer_text')->nullable();
+            $table->string('respondent_name')->nullable();
+            $table->string('respondent_email')->nullable();
             $table->timestamps();
         });
     }
